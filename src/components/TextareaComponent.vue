@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { value, placeholder } = defineProps([
+const { value, placeholder, labelTitle } = defineProps([
   "value",
   "placeholder",
   "labelTitle",
@@ -13,7 +13,12 @@ const emit = defineEmits();
     <textarea
       class="bg-gray-800 text-gray-300 placeholder-gray-400 rounded px-4 py-2 h-24"
       :value="value"
-      @input="emit('update:value', $event.target.value)"
+      @input="
+        (event: Event) => {
+          const target = event.target as HTMLTextAreaElement;
+          emit('update:value', target.value);
+        }
+      "
       :placeholder="placeholder"
     ></textarea>
   </div>
